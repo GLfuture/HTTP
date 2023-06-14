@@ -245,6 +245,6 @@ private:
     Http_kv_List arg_list;      // 参数
     Http_kv_List filed_list;    // 其他字段,如Host：
     Http_kv_List resopnse_list; // 回应头
-    const char* request_body;                    // request消息体
+    Http_String request_body;                    // request消息体
     uint16_t status;                             // 状态
 };
