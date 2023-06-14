@@ -30,7 +30,7 @@ public:
         Decode_Body(body);
     }
 
-    string Response_Content_Head()
+    Http_String Response_Content_Head()
     {
         string response_head = "Http/" + this->version + " " + std::to_string(this->status) + " ";
         response_head = response_head + Status_Str() + "\r\n";
