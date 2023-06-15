@@ -39,7 +39,7 @@ public:
             response_head = response_head + k + ": " + v + "\r\n";
         }
         response_head += "\r\n";
-        return response_head;
+        return  response_head;
     }
 
     Http_String Get_Version()
@@ -62,9 +62,9 @@ public:
         return this->http_type;
     }
 
-    Http_String Request_Get_Key_Value(string key)
+    Http_String Request_Get_Key_Value(Http_String key)
     {
-        return this->filed_list[key];
+        return this->filed_list[key.cbegin()];
     }
 
     Http_kv_List Request_Get_kv_List()
@@ -72,9 +72,9 @@ public:
         return this->filed_list;
     }
 
-    Http_String Request_Get_Arg_Value(string key)
+    Http_String Request_Get_Arg_Value(Http_String key)
     {
-        return this->arg_list[key];
+        return this->arg_list[key.cbegin()];
     }
 
     Http_String Request_Get_Body()
