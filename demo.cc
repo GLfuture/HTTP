@@ -16,11 +16,11 @@ Cookie: Hm_lvt_d7c7037093938390bc160fc28becc542=1680447309,1680447904,1680501144
     HTTP http;
     http.Request_Decode(request);
     cout<<http.Request_Get_Http_Type()<<" "<<http.Request_Get_Url()<<" "<<http.Get_Version()<<endl;
-    Http_kv_List hhh = http.Request_Get_Fields();
+    Http_kv_List hhh = http.Request_Get_kv_List();
     for(auto&[k,v]:hhh)
     {
         //cout<<k<<" : "<<v<<endl;
-        http.Response_Set_Field(k,v);
+        http.Response_Set_Key_Value(k,v);
     }
     cout<<http.Response_Content_Head()<<endl;
     return 0;

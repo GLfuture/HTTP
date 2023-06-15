@@ -67,12 +67,12 @@ public:
         return this->filed_list[key];
     }
 
-    Http_kv_List Request_Get_Keys()
+    Http_kv_List Request_Get_kv_List()
     {
         return this->filed_list;
     }
 
-    Http_String Request_Get_Args_Value(string key)
+    Http_String Request_Get_Arg_Value(string key)
     {
         return this->arg_list[key];
     }
