@@ -30,7 +30,7 @@ public:
         Decode_Body(body);
     }
 
-    Http_String Response_Content_Head()
+    string Response_Content_Head()
     {
         string response_head = "Http/" + this->version + " " + std::to_string(this->status) + " ";
         response_head = response_head + Status_Str() + "\r\n";
@@ -42,37 +42,37 @@ public:
         return response_head;
     }
 
-    const Http_String Get_Version()
+    Http_String Get_Version()
     {
         return this->version;
     }
 
-    void Set_Version(const char* version)
+    void Set_Version(Http_String version)
     {
-        this->version = version;
+        this->version.assign(version.cbegin(),version.cend());
     }
 
-    const Http_String Request_Get_Url()
+    Http_String Request_Get_Url()
     {
         return this->url;
     }
 
-    const Http_String Request_Get_Http_Type()
+    Http_String Request_Get_Http_Type()
     {
         return this->http_type;
     }
 
-    const Http_String Request_Get_Field_Value(string key)
+    Http_String Request_Get_Key_Value(string key)
     {
         return this->filed_list[key];
     }
 
-    Http_kv_List Request_Get_Fields()
+    Http_kv_List Request_Get_Keys()
     {
         return this->filed_list;
     }
 
-    const Http_String Request_Get_Args_Value(string key)
+    Http_String Request_Get_Args_Value(string key)
     {
         return this->arg_list[key];
     }
@@ -92,14 +92,15 @@ public:
         this->status = status;
     }
 
-    void Response_Set_Field(string key, string value)
+    void Response_Set_Key_Value(Http_String key, Http_String value)
     {
-        this->resopnse_list[key] = value;
+        string k(key.cbegin(),key.cend()),v(value.cbegin(),value.cend());
+        this->resopnse_list[k] = v;
     }
 
-    void Response_Set_Body(const char*& body)
+    void Response_Set_Body(Http_String body)
     {
-        this->request_body = body;
+        this->request_body.assign(body.cbegin(),body.cend());
     }
 
 private:
@@ -245,6 +246,6 @@ private:
     Http_kv_List arg_list;      // 参数
     Http_kv_List filed_list;    // 其他字段,如Host：
     Http_kv_List resopnse_list; // 回应头
-    Http_String request_body;                    // request消息体
+    string request_body;                    // request消息体
     uint16_t status;                             // 状态
 };
