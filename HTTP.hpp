@@ -22,7 +22,7 @@ public:
         int end = request.find("\r\n\r\n");
         string head = request.substr(beg, end);
         string body = request.substr(end + 4);
-        if (body.substr(body.length() - 4) == "\r\n\r\n")
+        if (body.length()>=4 &&body.substr(body.length() - 4) == "\r\n\r\n")
         {
             body = body.substr(0, body.length() - 4);
         }
