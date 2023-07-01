@@ -87,6 +87,11 @@ public:
         return this->status;
     }
 
+    void Request_Set_Body(Http_String body)
+    {
+        this->request_body.assign(body.cbegin(),body.cend());
+    }
+
     void Response_Set_Status(const uint16_t status)
     {
         this->status = status;
@@ -96,11 +101,6 @@ public:
     {
         string k(key.cbegin(),key.cend()),v(value.cbegin(),value.cend());
         this->resopnse_list[k] = v;
-    }
-
-    void Response_Set_Body(Http_String body)
-    {
-        this->request_body.assign(body.cbegin(),body.cend());
     }
 
 private:
