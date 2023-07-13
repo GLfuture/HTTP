@@ -1,8 +1,10 @@
 #include<iostream>
 #include<string>
 #include<vector>
-#include<HTTP.hpp>
+#include"HTTP.hpp"
 using namespace std;
+using namespace HTTP_NSP;
+
 int main()
 {
     const string request = "GET /login.html?a=1&b=2 HTTP/1.1\r\nHost: 192.168.124.130:9998\r\nConnection: keep-alive\r\nCache-Control: max-age=0\
