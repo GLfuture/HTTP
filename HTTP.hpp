@@ -34,7 +34,7 @@ namespace HTTP_NSP
 
         string Response_Content_Head()
         {
-            string response_head = "Http/" + this->version + " " + std::to_string(this->status) + " ";
+            string response_head = "HTTP/" + this->version + " " + std::to_string(this->status) + " ";
             response_head = response_head + Status_Str() + "\r\n";
             for (auto &[k, v] : this->resopnse_list)
             {
