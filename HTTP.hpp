@@ -18,21 +18,23 @@ namespace HTTP_NSP
     class HTTP
     {
     public:
-        void Request_Decode(const string &request)
+        int Praser(const string &request)
         {
             int beg = 0;
             int end = request.find("\r\n\r\n");
+            if(end == std::string::npos) return 0;
             string head = request.substr(beg, end);
-            string body = request.substr(end + 4);
-            if (body.length() >= 4 && body.substr(body.length() - 4) == "\r\n\r\n")
-            {
-                body = body.substr(0, body.length() - 4);
-            }
             Decode_Head(head);
+            string other = request.substr( end + 4 );
+            beg = end + 4;
+            end = other.find("\r\n\r\n");
+            if(end == std::string::npos) return 0;
+            string body = request.substr(beg , end);
             Decode_Body(body);
+            return end + 4;
         }
 
-        string Response_Content_Head()
+        string Content()
         {
             string response_head = "HTTP/" + this->version + " " + std::to_string(this->status) + " ";
             response_head = response_head + Status_Str() + "\r\n";
@@ -54,42 +56,46 @@ namespace HTTP_NSP
             this->version.assign(version.cbegin(), version.cend());
         }
 
-        Http_String Request_Get_Url()
+        Http_String Request_Get_Url() const
         {
             return this->url;
         }
 
-        Http_String Request_Get_Http_Type()
+        Http_String Request_Get_Http_Type() const
         {
             return this->http_type;
         }
 
-        Http_String Request_Get_Key_Value(Http_String key)
+        Http_String Request_Get_Key_Value(Http_String key) const
         {
-            return this->filed_list[key.cbegin()];
+            Http_kv_List::const_iterator it = filed_list.find(key.cbegin());
+            if(it == filed_list.end()) return "";
+            return it->second.c_str();
         }
 
-        Http_kv_List Request_Get_kv_List()
+        Http_kv_List Request_Get_kv_List() const
         {
             return this->filed_list;
         }
 
-        Http_String Request_Get_Arg_Value(Http_String key)
+        Http_String Request_Get_Arg_Value(Http_String key) const 
         {
-            return this->arg_list[key.cbegin()];
+            Http_kv_List::const_iterator it = arg_list.find(key.cbegin());
+            if(it == arg_list.end()) return "";
+            return it->second.c_str();
         }
-
-        Http_String Request_Get_Body()
+ 
+        Http_String Request_Get_Body() const 
         {
             return this->request_body;
         }
 
-        uint16_t Response_Get_Status()
+        uint16_t Response_Get_Status() const
         {
             return this->status;
         }
 
-        void Response_Set_Status(const uint16_t status)
+        void Response_Set_Status(const uint16_t status) 
         {
             this->status = status;
         }
