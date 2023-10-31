@@ -18,20 +18,31 @@ namespace HTTP_NSP
     class HTTP
     {
     public:
+        enum HTTP_RET_ERROR_CODE{
+            INCOMPLETE = -100,         //不完整的包
+            PROTO_ERROR,            //协议格式错误
+            LENGTH_ERROR,           //长度错误
+        };
+
+
         int Praser(const string &request)
         {
             int beg = 0;
             int end = request.find("\r\n\r\n");
-            if(end == std::string::npos) return 0;
+            if(end == std::string::npos) return INCOMPLETE;
             string head = request.substr(beg, end);
             Decode_Head(head);
             string other = request.substr( end + 4 );
             beg = end + 4;
-            end = other.find("\r\n\r\n");
-            if(end == std::string::npos) return 0;
+            end = other.find("\r\n");
+            if(end == std::string::npos) return INCOMPLETE;
             string body = request.substr(beg , end);
+            std::string_view len_str = Request_Get_Key_Value("Content-Length");
+            if(len_str.empty()) return PROTO_ERROR;
+            int content_len = atoi(len_str.cbegin());
+            if(body.length() != content_len) return LENGTH_ERROR;
             Decode_Body(body);
-            return end + 4;
+            return end + 2;
         }
 
         string Content()

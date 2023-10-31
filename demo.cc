@@ -12,10 +12,10 @@ Upgrade-Insecure-Requests: 1\r\n\
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36\r\n\
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\r\n\
 Accept-Encoding: gzip, deflate\r\n\
+Content-Length: 11\r\n\
 Accept-Language: zh-CN,zh;q=0.9\r\n\
-Content-Length:11\r\n\
 Cookie: Hm_lvt_d7c7037093938390bc160fc28becc542=1680447309,1680447904,1680501144,1681950890\r\n\r\n\
-hello world\r\n\r\n";
+hello world\r\n";
     HTTP http;
     cout << http.Praser(request)<<endl;
     cout << http.Request_Get_Http_Type()  << " " << http.Request_Get_Url() << " " << http.Get_Version() << endl;
