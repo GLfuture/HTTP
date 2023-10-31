@@ -7,6 +7,7 @@
 #include <string_view>
 #include <unordered_map>
 #include <vector>
+#include <memory>
 namespace HTTP_NSP
 {
     using std::string;
